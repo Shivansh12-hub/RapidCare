@@ -5,23 +5,14 @@ const BASE_URL =
   import.meta.env.REACT_APP_API_URL ||
   "http://localhost:8000/api";
 
-const TRIAGE_BASE_URL = import.meta.env.VITE_TRIAGE_API_URL || import.meta.env.VITE_ML_API_URL || BASE_URL;
-
 const api = axios.create({
   baseURL: BASE_URL,
   timeout: 15000,
   headers: { "Content-Type": "application/json" },
 });
 
-const triageApi = axios.create({
-  baseURL: TRIAGE_BASE_URL,
-  timeout: 15000,
-  headers: { "Content-Type": "application/json" },
-});
-
 export const runTriage = (data) =>
-  triageApi.post("/triage", {
-    chief_complaint: data.complaint,
+  api.post("/triage", {
     complaint: data.complaint,
     vitals: data.vitals || "",
     history: data.history || "None",
